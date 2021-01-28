@@ -14,7 +14,7 @@ module.exports = function (req, res, next) {
     
     if (user.password !== password) return res.status(401).send('Invalid credentials')
     
-    req.user = { name: user.name, username: user.username }
+    req.user = { name: user.name, username: user.username, loginTime: new Date() }
     
     next()
 }
