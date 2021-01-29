@@ -1,4 +1,4 @@
-const db = require('../db')
+const db = require('../userService')
 
 module.exports = function (req, res, next) {
     const authHeader = req.headers.authorization
