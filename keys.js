@@ -19,4 +19,4 @@ crypto.generateKeyPair('rsa', {
         }
         else throw err
     })
-
+process.env.HMAC_SHA_256_SECRET = crypto.randomBytes(20).toString('hex')
