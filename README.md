@@ -15,6 +15,8 @@ curl --request GET \
 
 ## Bearer Token
 
+### RS256
+
 Run auth request
 ```shell
 curl --request POST \
@@ -40,4 +42,33 @@ Use the token to call a protected endpoint
 curl --request GET \
   --url http://localhost:4000/bearer-token/rsa-sha-256/protected \
   --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1...'
+```
+
+### HS256
+
+Login request
+```sehll
+curl --request POST \
+  --url http://localhost:4000/bearer-token/hmac-sha-256/signin \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"username": "zemuldo",
+	"password": "password"
+}'
+```
+
+Response to this will look like
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2V..."
+}
+```
+
+Use the token to access protected endpoint
+
+```shell
+curl --request GET \
+  --url http://localhost:4000/bearer-token/hmac-sha-256/protected \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2...'
 ```
