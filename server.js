@@ -13,5 +13,4 @@ app.use('/bearer-token', require('./routes/bearerToken'))
 
 app.get('*', (req, res) => res.send('Hello from Geeks Conner'))
 
-app.listen(80, () => console.log('App started on http://localhost:4000'))
-app.listen(443, () => console.log('App started on http://localhost:4000'))
+app.listen(process.env.PORT, () => console.log(`App started on http://localhost:${process.env.PORT}`))
