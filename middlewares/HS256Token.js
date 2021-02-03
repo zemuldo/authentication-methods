@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 
 function signToken(token) {
-    const hmac = crypto.createHmac('sha256', 'a secret');
+    const hmac = crypto.createHmac('sha256', process.env.HMAC_SHA_256_SECRET);
     hmac.update(token);
     return hmac.digest('base64')
 }
