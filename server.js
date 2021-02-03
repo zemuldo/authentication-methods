@@ -13,4 +13,4 @@ app.use('/bearer-token', require('./routes/bearerToken'))
 
 app.get('*', (req, res) => res.send('Hello from Geeks Conner'))
 
-app.listen(4000, () => console.log('App started on http://localhost:4000'))
+app.listen(3000, () => console.log('App started on http://localhost:4000'))
