@@ -8,9 +8,17 @@ function signToken(token) {
 
 module.exports = {
     createToken: (payload) => {
-        const headerEncoding = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64');
-        const payloadEncoding = Buffer.from(JSON.stringify(payload)).toString('base64')
-        const signature = signToken(`${headerEncoding}.${payloadEncoding}`)
+        const headerEncoding = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64').replace(/=/g, '')
+        const payloadEncoding = Buffer.from(JSON.stringify(payload)).toString('base64').replace(/=/g, '')
+
+        const headerPluspayload = `${headerEncoding}.${payloadEncoding}`
+        const hmac = crypto.createHmac('sha256', 'secret').update(headerPluspayload).digest()
+
+        const signature = Buffer.from(hmac)
+            .toString('base64')
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=/g, '')
 
         return `${headerEncoding}.${payloadEncoding}.${signature}`
     },

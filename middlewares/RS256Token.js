@@ -13,7 +13,11 @@ function signToken(token) {
 module.exports = {
     createToken: (payload) => {
         const headerEncoding = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64');
-        const payloadEncoding = Buffer.from(JSON.stringify(payload)).toString('base64')
+        const payloadEncoding = Buffer.from(JSON.stringify(payload))
+            .toString('base64')
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=/g, '')
         const signature = signToken(`${headerEncoding}.${payloadEncoding}`)
         return `${headerEncoding}.${payloadEncoding}.${signature}`
     },
